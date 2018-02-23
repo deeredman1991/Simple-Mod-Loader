@@ -181,16 +181,17 @@ class Manager(object):
         self.original_game_paks = []
 
     def populate_paks(self, sort = True):
-        self._populate_mod_paks()
-        self._populate_original_game_paks()
+        self.populate_mod_paks()
         if sort:
-            self._sort_mods_by_load_order()
+            self.sort_mods_by_load_order()
+        
+        self.populate_original_game_paks()
 
-    def _populate_mod_paks(self):
+    def populate_mod_paks(self):
         for filename in os.listdir( self.mod_files_filepath ):
             self.mod_paks.append( Pak( self.mod_files_filepath + filename ) )
 
-    def _populate_original_game_paks(self):
+    def populate_original_game_paks(self):
         def get_all_game_paks( fp = None ):
             if fp == None:
                 fp = self.game_files_filepath
@@ -260,7 +261,7 @@ class Manager(object):
 
         return new_file
         
-    def _sort_mods_by_load_order(self):
+    def sort_mods_by_load_order(self):
         mod_paks = self.mod_paks
         sorted_list = []
 
@@ -289,7 +290,14 @@ class Manager(object):
                 
         self.mod_paks = sorted_list
 
-def _get_paths(exe):
+def get_paths():
+    with open('configs' + os.sep + 'exe_path', 'r') as file:
+        file = file.read().split('\n')
+        for line in file:
+            line = line.split('=')
+            if line[0] == 'exe_path':
+                exe = line[1]
+
     path_list = exe.split(os.sep)
     path_list.pop()
 
@@ -312,9 +320,7 @@ def _get_paths(exe):
     return usercfg, data_path, localization_path, mods_path
 
 if __name__ == '__main__':
-    exe = 'C:\Program Files (x86)\Kingdom Come - Deliverance\Bin\Win64\KingdomCome.exe'
-    
-    usercfg, data_path, localization_path, mods_path = _get_paths(exe)
+    usercfg, data_path, localization_path, mods_path = get_paths(exe)
     
     manager = Manager(mods_path, data_path)
     manager.populate_paks()

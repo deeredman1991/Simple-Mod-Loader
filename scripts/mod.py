@@ -9,31 +9,33 @@ from kivy.uix.label import Label
 from kivy.uix.boxlayout import BoxLayout
 
 class Mod(BoxLayout):
-    def __init__(self, mod_name, position):
-    
+    def __init__(self, mod_name, position, *args, **kwargs):
+        super(Mod, self).__init__(*args, **kwargs)
+        
         self._position = position
-    
+
         self._position_label = Label()
         self._position_label.text = self.position
         self.add_widget(self._position_label)
-        
+
         self._mod_name_label = Label()
-        self._position_label.text = mod_name
-        
+        self._mod_name_label.text = mod_name
+        self.add_widget(self._mod_name_label)
+
         self._up_button = Button()
         self._up_button.text = 'up'
         self.add_widget(self._up_button)
-        
+
         self._dn_button = Button()
         self._dn_button.text = 'dn'
         self.add_widget(self._dn_button)
-        
+
     @property
-    def position(self)
-        return self._position
+    def position(self):
+        return str(self._position)
         
     @position.setter
     def position(self, value):
         #TODO: make it change the position of this object in the parent object
         self._position = value
-        self._position_label.text = self._position
+        self._position_label.text = self.position

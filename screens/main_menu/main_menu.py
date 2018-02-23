@@ -7,6 +7,7 @@ import os
 
 from screens.main_menu.buttons.exit_button import ExitButton
 from scripts.screen import Screen
+from scripts.mod_list_container import ModListContainer
 
 
 class MainMenu(Screen):
@@ -23,8 +24,8 @@ class MainMenu(Screen):
         #TODO: Move these out to a BoxLayout. So they can be centered
         #       Easier.
 
-        for mod in os.listdir('mods'):
-            print(mod)
+        self.mod_list_container = ModListContainer()
+        self.add_widget(self.mod_list_container)
         
         #Creates the Exit Button and sets it as a child of self.
         self._exit_button = ExitButton()

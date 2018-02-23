@@ -36,7 +36,7 @@ class GameApp(App):
         #Window.size = (300, 500)
 
         #Sets the title of the application window.
-        self.title = 'Twitch Plays Bot'
+        self.title = 'Simple Mod Loader'
 
         #Declares a dictionary to hold icon file path objects.
         icons = {
