@@ -1,0 +1,4 @@
+*.txt
+load_order
+mods/*
+*.bat
